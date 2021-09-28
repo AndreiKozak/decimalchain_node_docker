@@ -1,0 +1,22 @@
+version: "3.4"
+networks:
+  decdnet:
+    ipam:
+      config:
+        - subnet: 172.23.0.0/24
+
+services:
+  decd-node:
+    build: containers/decd-node
+    container_name: decd-node
+    ports:
+     - 0.0.0.0:26656:26656
+    volumes:
+     - ./docker_mounts/decd-node:/home/decimal/.decimal
+    logging:
+      options:
+        max-size: "100M"
+        max-file: "7"
+    networks:
+     decdnet:
+       ipv4_address: 172.36.0.118
